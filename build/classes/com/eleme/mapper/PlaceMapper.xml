@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eleme.mapper.PlaceMapper" >
+	
+	<select id="findProvince" resultType="Place">
+		select * from place where adcode like "%0000" order by adcode;
+	</select>
+	
+	<select id="findCity" parameterType="QueryVo" resultType="Place">
+		SELECT * FROM place WHERE adcode LIKE #{code1} and adcode != #{code2};
+	</select>
+	
+	<select id="findCounty" parameterType="String" resultType="Place">
+		select * from place where adcode not like "%00" and citycode = #{v};
+	</select>
+	
+</mapper>

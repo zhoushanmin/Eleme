@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eleme.mapper.CommodityMapper" >
+	
+	<select id="findCommoditysByCateId" parameterType="Integer" resultType="Commodity">
+		
+		select * from (select  c.id,
+					c.commodity_name,
+					c.commodity_jianjie,
+					c.commodity_price,
+					c.commodity_pic,
+					d.commodity_cate_name
+	 	from commodity c,commodity_cate d
+		where c.commodity_cate_id = d.id and d.id = #{id}) a
+		 limit #{begin},#{rows};
+	</select>
+	
+	<select id="findCount" parameterType="QueryVo" resultType="Integer">
+		select count(id) from commodity
+		where commodity_cate_id = #{id};
+	</select>
+	
+	<insert id="insertCommodity" parameterType="Commodity" >
+		insert into commodity
+		(commodity_name,
+		commodity_jianjie,
+		commodity_price,
+		commodity_pic,
+		commodity_cate_id)
+		values (#{commodity_name},
+		#{commodity_jianjie},
+		#{commodity_price},
+		#{commodity_pic},
+		#{commodity_cate_id})
+	</insert>
+	
+	<select id="findCommodityById" parameterType="Integer" resultType="Commodity">
+		select 
+					id,
+					commodity_name,
+					commodity_jianjie,
+					commodity_price,
+					commodity_pic 
+					from commodity
+					where id = #{v};
+	</select>
+	
+	<update id="updateCommodity" parameterType="Commodity" >
+		update commodity
+		set
+		commodity_name = #{commodity_name},
+		commodity_jianjie = #{commodity_jianjie},
+		commodity_price = #{commodity_price},
+		commodity_pic = #{commodity_pic}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteCommodity" parameterType="Integer" >
+		delete from commodity where id=#{v}
+	</delete>
+	
+	<select id="findCommoditysByName" parameterType="QueryVo" resultType="Commodity">
+		select * from (select  co.id,
+					co.commodity_name,
+					co.commodity_jianjie,
+					co.commodity_price,
+					co.commodity_pic,
+					d.commodity_cate_name
+	 	from commodity co,commodity_cate d
+		where co.commodity_cate_id = d.id and d.shop_id = #{userId} and co.commodity_name like #{name}) a
+		 limit #{begin},#{rows};
+	</select>
+	
+	<select id="findCommoditysByNameCount" parameterType="QueryVo" resultType="Integer">
+		select count(id) from commodity
+		 where commodity_cate_id in (select id from commodity_cate where shop_id = #{userId}) and commodity_name like #{name};
+	</select>
+	
+	<select id="findAllCommodity" parameterType="Integer" resultType="Commodity">
+		select id,commodity_name from commodity where commodity_cate_id in (select id from commodity_cate where shop_id = #{v});
+	</select>
+	
+	<select id="findCommodityMonthlySales" parameterType="QueryVo" resultType="MonthlySales">
+		select date, monthly_sales from monthly_sale where commodity_id = #{id} 
+		<if test="name != null and name != '' ">
+			and date >= #{name};
+		</if>
+	</select>
+	
+	<select id="findAllCommodityTotalSales" parameterType="Integer" resultType="Commodity">
+		select commodity_name,total_sales from commodity where commodity_cate_id in (select id from commodity_cate where shop_id = #{v});
+	</select>
+	
+</mapper>

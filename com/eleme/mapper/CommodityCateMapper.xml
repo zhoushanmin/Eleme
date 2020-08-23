@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eleme.mapper.CommodityCateMapper" >
+	
+	<select id="findCommodityCatesByUserId" parameterType="Integer" resultType="CommodityCate">
+		select id, commodity_cate_name from commodity_cate
+		where shop_id = #{v};
+	</select>
+	
+	<insert id="addCate" parameterType="QueryVo">
+		insert into commodity_cate
+		(commodity_cate_name,shop_id)
+		values(#{name},#{id});
+	</insert>
+	
+	<delete id="deleteCate" parameterType="Integer">
+		delete from commodity_cate where id = #{v};
+	</delete>
+	
+	<select id="findCateNameById" parameterType="Integer" resultType="String">
+		select commodity_cate_name from commodity_cate where id = #{v};
+	</select>
+	
+	<update id="updateCate" parameterType="QueryVo">
+		update commodity_cate set commodity_cate_name = #{name} where id = #{id};
+	</update>
+	
+</mapper>

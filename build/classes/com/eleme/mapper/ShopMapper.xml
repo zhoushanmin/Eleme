@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eleme.mapper.ShopMapper" >
+	
+	<select id="findSellerByNumber" parameterType="String" resultType="Shop">
+		select id,phone_number,create_time,intelligence,status from shop where phone_number = #{v};
+	</select>
+	
+	<insert id="addShop" parameterType="Shop">
+		insert into shop (phone_number,create_time,intelligence) values (#{phone_number},#{create_time},#{intelligence});
+	</insert>
+	
+	<insert id="addShopInformation" parameterType="ShopInformation">
+		insert into shop_information
+		 (  
+		 	shop_name,
+			ssq,
+			detailed_address,
+			business_category,
+			front_door_photo,
+			shop_inside_photo,
+			shop_logo,
+			take_out_phone,
+			contact_name,
+			contact_number,
+			shop_id
+			) values (
+			#{shop_name},
+			#{ssq},
+			#{detailed_address},
+			#{business_category},
+			#{front_door_photo},
+			#{shop_inside_photo},
+			#{shop_logo},
+			#{take_out_phone},
+			#{contact_name},
+			#{contact_number},
+			#{shop_id}
+			);
+	</insert>
+	
+	<insert id="addInteligenceInformation" parameterType="InteligenceInformation">
+		insert into inteligence_information 
+		(
+		main_document_type,
+		main_id_photo,
+		industry_document_type,
+		industry_id_photo,
+		shop_id
+		) 
+		values 
+		(
+		#{main_document_type},
+		#{main_id_photo},
+		#{industry_document_type},
+		#{industry_id_photo},
+		#{shop_id}
+		);
+	</insert>
+	
+	<insert id="addShopOwner" parameterType="ShopOwner">
+		insert into shop_owner 
+		(
+		user_name,
+		user_sex,
+		user_nation,
+		user_birthday,
+		user_home_address,
+		just_id_photo,
+		back_id_photo,
+		user_and_id_photo,
+		shop_id
+		) 
+		values 
+		(
+		#{user_name},
+		#{user_sex},
+		#{user_nation},
+		#{user_birthday},
+		#{user_home_address},
+		#{just_id_photo},
+		#{back_id_photo},
+		#{user_and_id_photo},
+		#{shop_id}
+		);
+	</insert>
+	
+</mapper>
