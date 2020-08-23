@@ -1,0 +1,33 @@
+.table1{
+     width: 100%;
+     margin: 3px auto 0;
+     border: 1px solid #95b8e7;
+ }
+ .table1 tr td{
+     padding: 5px;
+     border: 1px solid #95b8e7;
+ }
+ .table1 tr .tda a{
+     display: block;
+     width: 100%;
+ }
+ .table1 tr .tda:hover{
+     background-color: #eaf2ff;
+ }
+ a{
+ 	text-decoration: none;
+ }
+ a:hover{
+ 	color: #4FC5FF;
+ }
+ .addCate{
+     display: block;
+     background: url("img/edit_add.png") 4px 4px no-repeat;
+     width: 24px;
+     height: 24px;
+     border: 1px solid #ffffff;
+ }
+ .addCate:hover{
+     border: 1px solid #d6d7d7;
+ }
+ 
